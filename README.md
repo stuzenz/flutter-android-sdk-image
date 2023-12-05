@@ -36,6 +36,10 @@ The dev experience is clean and works as well as I had it on an Ubuntu instance 
 
 Removing a Container: If you remove a container using `docker rm`, all the changes you made inside that container are lost. If you start a new container from the same image using `docker run`, it will be a fresh instance based on the image, without any of the changes you made in the previous container.
 
+Most will know this, but just to put others at ease, stopping and starting containers will preserve the state in the container (using `avdmanager` to build an android emulator image as an example)
+- `docker start my-flutter-dev`
+- `docker stop my-flutter-dev`
+
 Committing Changes: If you want to preserve the state of a container (with all your changes) in a new Docker image, you can use the `docker commit` command. This creates a new image based on the current state of the container, which you can use to start new containers later with all those changes.
 
 ## Instructions
@@ -177,3 +181,7 @@ root@339e37f08da2:/app# emulator -avd android-simple
 ### To note
 
 - Sometimes the Android emulator would not start, and I would have to run `emulator -avd android-simple` again
+
+## TODO
+
+- I might look as persisting the `avdmanager` generated images to the host machine
