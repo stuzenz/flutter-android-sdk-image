@@ -38,14 +38,6 @@ Removing a Container: If you remove a container using `docker rm`, all the chang
 
 Committing Changes: If you want to preserve the state of a container (with all your changes) in a new Docker image, you can use the `docker commit` command. This creates a new image based on the current state of the container, which you can use to start new containers later with all those changes.
 
-
-=> [5/9] RUN sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator"   204.1s 
- => => # Warning: Package "com.android.repository.impl.generated.v2.RemotePackage@86548d02" (emulator) sh 
- => => # ould be installed in                                                                             
- => => # "/usr/lib/android-sdk/emulator" but                                                              
- => => # it already exists.                                                                               
- => => # Installing in "/usr/lib/android-sdk/emulator-2" instead. 
-
 ## Instructions
 
 ### Build the image
