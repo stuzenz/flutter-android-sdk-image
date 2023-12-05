@@ -174,7 +174,6 @@ root@339e37f08da2:/app# emulator -avd android-simple
 
 ![Alt text](image-2.png)
 
-### Warnings
+### To note
 
-- Android virtual machines can be a little bit brittle, sometimes I would have to run commands twice to have them work
-- Sometimes the emulator would not start, and I would have to run `emulator -avd android-simple` again
+- Sometimes the Android emulator would not start, and I would have to run `emulator -avd android-simple` again
