@@ -49,12 +49,23 @@ RUN apt-get update && apt-get install -y \
     libxcb-xinerama0 \
     && rm -rf /var/lib/apt/lists/*
     
+# # Install Android command line tools
+# RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
+#     cd ${ANDROID_HOME}/cmdline-tools && \
+#     curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
+#     unzip cmdline-tools.zip && \
+#     rm cmdline-tools.zip
+
 # Install Android command line tools
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     cd ${ANDROID_HOME}/cmdline-tools && \
-    curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
-    unzip cmdline-tools.zip && \
-    rm cmdline-tools.zip
+    curl -o commandlinetools-linux-10406996_latest.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
+    unzip -d . commandlinetools-linux-10406996_latest.zip && \
+    rm commandlinetools-linux-10406996_latest.zip
+
+
+# Update PATH environment variable after installation
+ENV PATH="$PATH:$FLUTTER_HOME/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/bin:$ANDROID_HOME/platform-tools"
 
 # Accept Android SDK licenses
 RUN yes | sdkmanager --licenses
