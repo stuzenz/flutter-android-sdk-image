@@ -50,17 +50,21 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
     
 # Install Android command line tools
+# Install Android command line tools and accept licenses
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
     cd ${ANDROID_HOME}/cmdline-tools/latest && \
     curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
     unzip cmdline-tools.zip && \
-    rm cmdline-tools.zip
+    rm cmdline-tools.zip && \
+    export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin" && \
+    yes | sdkmanager --licenses
+
 
 # Update PATH environment variable
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 
 # Accept Android SDK licenses
-RUN yes | sdkmanager --licenses
+RUN /usr/lib/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Clean any existing emulator installations and install Android SDK components including system images for emulator
 RUN rm -rf /usr/lib/android-sdk/emulator* && \
