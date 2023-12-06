@@ -49,13 +49,20 @@ RUN apt-get update && apt-get install -y \
     libxcb-xinerama0 \
     && rm -rf /var/lib/apt/lists/*
     
-# Download and install Android SDK
-RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
-    cd ${ANDROID_HOME}/cmdline-tools && \
+# Install Android command line tools
+RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
+    cd ${ANDROID_HOME}/cmdline-tools/latest && \
     curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
     unzip cmdline-tools.zip && \
-    rm cmdline-tools.zip && \
-    mv cmdline-tools latest
+    rm cmdline-tools.zip
+
+# Install Google Chrome for Flutter web development (there may be some use cases not to use the host browser)
+RUN apt-get update && apt-get install -y wget gnupg2 && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
 
 # Accept Android SDK licenses
 RUN yes | sdkmanager --licenses
