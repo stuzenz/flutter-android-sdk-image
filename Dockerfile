@@ -56,13 +56,15 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
     unzip cmdline-tools.zip && \
     rm cmdline-tools.zip
 
-# Install Google Chrome for Flutter web development (there may be some use cases not to use the host browser)
-RUN apt-get update && apt-get install -y wget gnupg2 && \
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list' && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable && \
-    rm -rf /var/lib/apt/lists/*
+# Install Android command line tools
+RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
+    cd ${ANDROID_HOME}/cmdline-tools/latest && \
+    curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
+    unzip cmdline-tools.zip && \
+    rm cmdline-tools.zip
+
+# Update PATH environment variable
+ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 
 # Accept Android SDK licenses
 RUN yes | sdkmanager --licenses
@@ -73,6 +75,15 @@ RUN rm -rf /usr/lib/android-sdk/emulator* && \
 
 # Create an Android emulator
 RUN echo "no" | avdmanager create avd -n testEmulator -k "system-images;android-30;default;x86_64"
+
+# Install Google Chrome for Flutter web development (there may be some use cases not to use the host browser)
+RUN apt-get update && apt-get install -y wget gnupg2 && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list' && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Download and install Flutter SDK
 RUN git clone https://github.com/flutter/flutter.git -b stable ${FLUTTER_HOME}
