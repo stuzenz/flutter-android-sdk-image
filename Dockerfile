@@ -56,13 +56,6 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
     unzip cmdline-tools.zip && \
     rm cmdline-tools.zip
 
-# Install Android command line tools
-RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
-    cd ${ANDROID_HOME}/cmdline-tools/latest && \
-    curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
-    unzip cmdline-tools.zip && \
-    rm cmdline-tools.zip
-
 # Update PATH environment variable
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 
