@@ -53,7 +53,7 @@ RUN apt-get update && apt-get install -y \
 # Install Android command line tools and accept licenses
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools/latest && \
     cd ${ANDROID_HOME}/cmdline-tools/latest && \
-    curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip && \
+    curl -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip && \
     unzip cmdline-tools.zip && \
     rm cmdline-tools.zip && \
     export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin" && \
