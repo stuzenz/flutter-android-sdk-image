@@ -1,7 +1,7 @@
 # IMPORTANT NOTE (7 MONTHS AFTER MAKING THIS DOCKER CONTAINER PROJECT FOR FLUTTER DEVELOPMENT)
 
 My preferred set up for flutter development is now using [devenv.sh](https://devenv.sh/)
-I recommend this approach for others as well. Notes are here.
+I recommend this approach for others as well. [Notes are here.](https://devenv.sh/integrations/android/#emulators)
 
 - [devenv.sh](https://devenv.sh/) is a environment builder providing a clean API for using nix in the background to declaratively instantiate environments (including services and hooks etc.)
 
